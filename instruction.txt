@@ -1,0 +1,22 @@
+#Kinetic version
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install ros-kinetic-rosserial
+sudo apt-get install libnlopt-dev
+sudo apt-get install ros-kinetic-rosserial-arduino 
+sudo apt-get install ros-kinetic-rosserial-msgs
+sudo apt-get install ros-kinetic-rosserial-client
+sudo apt-get install ros-kinetic-rosserial-server 
+sudo apt-get install ros-kinetic-moveit*
+
+
+#Melodic version
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install ros-melodic-rosserial
+sudo apt-get install libnlopt-dev
+sudo apt-get install ros-melodic-rosserial-arduino 
+sudo apt-get install ros-melodic-rosserial-msgs
+sudo apt-get install ros-melodic-rosserial-client
+sudo apt-get install ros-melodic-rosserial-server 
+sudo apt-get install ros-melodic-moveit*

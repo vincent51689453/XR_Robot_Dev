@@ -1,0 +1,11 @@
+controller_list:
+  - name: fake_arm_group_controller
+    joints:
+      - a
+      - b
+      - c
+      - d
+      - e
+  - name: fake_claw_group_controller
+    joints:
+      - f
