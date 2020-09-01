@@ -22,6 +22,6 @@ $ roslaunch arm_desktop_A1 display.launch
 ```
 $ roslaunch arm_A1_Moveit demo.launch
 ```
-
+![image](https://github.com/vincent51689453/XR_Robot_Dev/blob/master/git_image/moveit.png)
 
 
