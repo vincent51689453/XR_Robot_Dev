@@ -1,0 +1,7 @@
+<library path="lib/libxrsolve_ik_kinematics_plugin">
+  <class name="xrsolve_ik_kinematics_plugin/XRSOLVE_IKKinematicsPlugin" type="xrsolve_ik_kinematics_plugin::XRSOLVE_IKKinematicsPlugin" base_class_type="kinematics::KinematicsBase">
+    <description>
+      XRSOLVE-IK.
+    </description>
+  </class>
+</library>
