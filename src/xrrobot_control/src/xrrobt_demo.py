@@ -12,6 +12,7 @@ from moveit_msgs.msg import MoveGroupGoal, MoveGroupResult, MoveGroupAction, Con
 from shape_msgs.msg import SolidPrimitive
 from std_msgs.msg import Header
 import moveit_commander
+from math import pi
 
 class MoveMK2ik():
     def __init__(self):
@@ -27,9 +28,10 @@ class MoveMK2ik():
         print( group.get_current_pose().pose)
 
         r = rospy.Rate(10)
-
+        self.calculate_mk2_ik()
+        
         while not rospy.is_shutdown():
-            self.calculate_mk2_ik()
+            
             r.sleep()
 
     def create_move_group_pose_goal(self, goal_pose=Pose(), group="arm_group", end_link_name=None, plan_only=True):
@@ -73,10 +75,10 @@ class MoveMK2ik():
         group = moveit_commander.MoveGroupCommander("arm_group")
         goal_pose = Pose()
 
-        # Goto position 1
-        goal_point = Point(0.18, 0.2, 0.35)#x ,y , z
+        # Goto position 1 (Home Position)
+        goal_point = Point(0.3, 0.1, 0.35)#x ,y , z
         goal_pose.position = goal_point
-        quat = quaternion_from_euler(0.0, 0.0, 0.0) # roll, pitch, yaw
+        quat = quaternion_from_euler(0, 0, -0.3) # roll, pitch, yaw
         goal_pose.orientation = Quaternion(*quat.tolist())
         moveit_goal = self.create_move_group_pose_goal(goal_pose, group="arm_group", end_link_name="grasping_frame", plan_only=False)
         rospy.loginfo("Sending goal...")
@@ -85,7 +87,7 @@ class MoveMK2ik():
         self.moveit_ac.wait_for_result(rospy.Duration(10.0))
         moveit_result = self.moveit_ac.get_result()
         time.sleep(1)
-        print( "111 pose is: ")
+        print( "xrrobot pose is: ")
         print( group.get_current_pose().pose)
 	
 """
