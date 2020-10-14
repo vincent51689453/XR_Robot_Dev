@@ -71,15 +71,18 @@ class MoveMK2ik():
 
     def calculate_mk2_ik(self):
 
-        #goal_point = Point(0.298, -0.249, -0.890) home position
         group = moveit_commander.MoveGroupCommander("arm_group")
         goal_pose = Pose()
 
         # Goto position 1 (Home Position)
-        goal_point = Point(0.3, 0.1, 0.35)#x ,y , z
+        goal_point = Point(0.373429,0.0420103,0.453522)#x ,y , z
         goal_pose.position = goal_point
-        quat = quaternion_from_euler(0, 0, -0.3) # roll, pitch, yaw
-        goal_pose.orientation = Quaternion(*quat.tolist())
+        #quat = quaternion_from_euler(0, 0, -0.3) # roll, pitch, yaw
+        #goal_pose.orientation = Quaternion(*quat.tolist())
+        goal_pose.orientation.x = 0.0
+        goal_pose.orientation.y = 0.707098
+        goal_pose.orientation.z = 0.707116
+        goal_pose.orientation.w = 0.0
         moveit_goal = self.create_move_group_pose_goal(goal_pose, group="arm_group", end_link_name="grasping_frame", plan_only=False)
         rospy.loginfo("Sending goal...")
         self.moveit_ac.send_goal(moveit_goal)
@@ -87,15 +90,20 @@ class MoveMK2ik():
         self.moveit_ac.wait_for_result(rospy.Duration(10.0))
         moveit_result = self.moveit_ac.get_result()
         time.sleep(1)
-        print( "xrrobot pose is: ")
+        print( "xrrobot pose 1 is: ")
         print( group.get_current_pose().pose)
-	
-"""
-        # Goto position 2
-        goal_point = Point(0.1, 0.1, 0.1)
+
+        group.clear_pose_targets()
+
+        # Goto position 2 (Pick Position)
+        goal_point = Point(0.373687,0.0410177,0.0933609)#x ,y , z
         goal_pose.position = goal_point
-        quat = quaternion_from_euler(0.2, 0.2, 0.2) # roll, pitch, yaw
-        goal_pose.orientation = Quaternion(*quat.tolist())
+        #quat = quaternion_from_euler(0, 0, -0.3) # roll, pitch, yaw
+        #goal_pose.orientation = Quaternion(*quat.tolist())
+        goal_pose.orientation.x = 0.0
+        goal_pose.orientation.y = 0.707027
+        goal_pose.orientation.z = 0.707165
+        goal_pose.orientation.w = 0.005
         moveit_goal = self.create_move_group_pose_goal(goal_pose, group="arm_group", end_link_name="grasping_frame", plan_only=False)
         rospy.loginfo("Sending goal...")
         self.moveit_ac.send_goal(moveit_goal)
@@ -103,9 +111,31 @@ class MoveMK2ik():
         self.moveit_ac.wait_for_result(rospy.Duration(10.0))
         moveit_result = self.moveit_ac.get_result()
         time.sleep(1)
-        print "2222 pose is: "
-        print group.get_current_pose().pose
-"""
+        print( "xrrobot pose 2 is: ")
+        print( group.get_current_pose().pose)
+
+        group.clear_pose_targets()
+
+        # Goto position 3 (Home Position)
+        goal_point = Point(0.373429,0.0420103,0.453522)#x ,y , z
+        goal_pose.position = goal_point
+        #quat = quaternion_from_euler(0, 0, -0.3) # roll, pitch, yaw
+        #goal_pose.orientation = Quaternion(*quat.tolist())
+        goal_pose.orientation.x = 0.0
+        goal_pose.orientation.y = 0.707098
+        goal_pose.orientation.z = 0.707116
+        goal_pose.orientation.w = 0.0
+        moveit_goal = self.create_move_group_pose_goal(goal_pose, group="arm_group", end_link_name="grasping_frame", plan_only=False)
+        rospy.loginfo("Sending goal...")
+        self.moveit_ac.send_goal(moveit_goal)
+        rospy.loginfo("Waiting for result...")
+        self.moveit_ac.wait_for_result(rospy.Duration(10.0))
+        moveit_result = self.moveit_ac.get_result()
+        time.sleep(1)
+        print( "xrrobot pose 3 is: ")
+        print( group.get_current_pose().pose)
+
+        group.clear_pose_targets()
 
 if __name__ == '__main__':
     try:
