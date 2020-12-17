@@ -1,0 +1,1 @@
+rosrun moveit_kinematics create_ikfast_moveit_plugin.py myarm_a1 manipulator myarm_a1_ikfast_manipulator_plugin /home/xrgeek/moveit_ws/src/myarm_a1_ikfast_manipulator_plugin/src/myarm_a1_manipulator_ikfast_solver.cpp
