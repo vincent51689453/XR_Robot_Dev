@@ -14,7 +14,7 @@ $ roslaunch xrrobot Arduino.launch
 ### 1.2 Rviz control demo
 This demo can show joint by joint adjustment of xrrobot
 ```
-$ roslaunch arm_desktop_A1 display.launch
+$ roslaunch myarm_a1 display.launch
 ```
 ![image](https://github.com/vincent51689453/XR_Robot_Dev/blob/master/git_image/robot_arm.png)
 
@@ -23,7 +23,7 @@ $ roslaunch arm_desktop_A1 display.launch
 ### 1.3 Moiveit control demo
 This demo can show the capabilitiy and reaction of manual assigned destination.
 ```
-$ roslaunch arm_A1_Moveit demo.launch
+$ roslaunch myarm_a1_moveit_config demo.launch
 ```
 ![image](https://github.com/vincent51689453/XR_Robot_Dev/blob/master/git_image/moveit.png)
 
@@ -32,7 +32,7 @@ $ roslaunch arm_A1_Moveit demo.launch
 This demo can demonstrate a series of action "pick and release actions" by python control.
 ```
 $ sudo chmod a+x src/xrrobot_control/src/robot_demo.py
-$ roslaunch arm_A1_Moveit demo.launch
+$ roslaunch myarm_a1_moveit_config demo.launch
 $ rosrun xrrobot_control robot_demo.py
 ```
 
