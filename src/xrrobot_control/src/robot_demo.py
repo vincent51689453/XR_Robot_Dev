@@ -89,6 +89,11 @@ class MoveMK2ik():
         time.sleep(1)
         print( "Home position: ")
         print( group.get_current_pose().pose)
+        #Gripper [OPEN]
+        gripper = moveit_commander.MoveGroupCommander("arm_claw")
+        joint_positions = [-0.7,0.7]
+        gripper.set_joint_value_target(joint_positions)
+        gripper.go()
 	
 
         # Goto position 2 [PICK]
@@ -105,15 +110,32 @@ class MoveMK2ik():
         time.sleep(5)
         print "Pick position: "
         print group.get_current_pose().pose
-        """
-        #Gripper [OPEN]
+ 
+        #Gripper [CLOSED]
         gripper = moveit_commander.MoveGroupCommander("arm_claw")
-        joint_positions = [0.7,0.7]
+        joint_positions = [0.0,0.0]
         gripper.set_joint_value_target(joint_positions)
         gripper.go()
-        """
 
-        # Goto position 3 [PUT]
+        # Goto position 3 [HOME]
+        # x ,y , z
+        goal_point = Point(-0.0297,0.3455,0.41)
+        goal_pose.position = goal_point
+        # roll, pitch, yaw
+        quat = quaternion_from_euler(0.0, 0.0, 0.0) 
+        # hardcode quaternion
+        goal_pose.orientation = Quaternion(0.005,-0.005,0.707,0.707)
+        moveit_goal = self.create_move_group_pose_goal(goal_pose, group="manipulator", end_link_name="end_Link", plan_only=False)
+        rospy.loginfo("Sending goal...")
+        self.moveit_ac.send_goal(moveit_goal)
+        rospy.loginfo("Waiting for result...")
+        self.moveit_ac.wait_for_result(rospy.Duration(10.0))
+        moveit_result = self.moveit_ac.get_result()
+        time.sleep(1)
+        print( "Home position: ")
+        print( group.get_current_pose().pose)        
+
+        # Goto position 4 [PUT]
         goal_point = Point(0.110921,0.383053,0.0912104)
         goal_pose.position = goal_point
         quat = quaternion_from_euler(0.2, 0.2, 0.2) # roll, pitch, yaw
@@ -127,8 +149,13 @@ class MoveMK2ik():
         time.sleep(5)
         print "Put position: "
         print group.get_current_pose().pose
+        #Gripper [OPEN]
+        gripper = moveit_commander.MoveGroupCommander("arm_claw")
+        joint_positions = [-0.7,0.7]
+        gripper.set_joint_value_target(joint_positions)
+        gripper.go()
 
-        # Goto position 4 [HOME]
+        # Goto position 5 [HOME]
         # x ,y , z
         goal_point = Point(-0.0297,0.3455,0.41)
         goal_pose.position = goal_point
