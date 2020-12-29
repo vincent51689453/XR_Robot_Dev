@@ -12,7 +12,7 @@ $ roslaunch xrrobot Arduino.launch
 
 
 ### 1.2 Rviz control demo
-This demo can show joint by joint adjustment of xrrobot
+This demo can show joint by joint adjustment of xrrobot. If the control panel is gone, you can reset all the things in order to trigger it again.
 ```
 $ roslaunch myarm_a1 display.launch
 ```
@@ -29,9 +29,10 @@ $ roslaunch myarm_a1_moveit_config demo.launch
 
 
 ### 1.4 Python control using ikfast
-This demo can demonstrate a series of action "pick and release actions" by python control.
+This demo can demonstrate a series of action "pick and release actions" by python control. Noted that display.launch is used to reset the robot arm to default positions. When the robot arm is observed to be reset, it can be clused and execute demo.launch
 ```
 $ sudo chmod a+x src/xrrobot_control/src/robot_demo.py
+$ roslaunch myarm_a1 display.launch
 $ roslaunch myarm_a1_moveit_config demo.launch
 $ rosrun xrrobot_control robot_demo.py
 ```

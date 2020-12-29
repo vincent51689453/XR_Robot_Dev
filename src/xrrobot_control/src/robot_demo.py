@@ -72,14 +72,14 @@ class MoveMK2ik():
         group = moveit_commander.MoveGroupCommander("manipulator")
         goal_pose = Pose()
 
-        # Goto position 1
+        # Goto position 1 [HOME]
         # x ,y , z
-        goal_point = Point(-0.0297,0.3491,0.4051)
+        goal_point = Point(-0.0297,0.3455,0.41)
         goal_pose.position = goal_point
         # roll, pitch, yaw
         quat = quaternion_from_euler(0.0, 0.0, 0.0) 
         # hardcode quaternion
-        goal_pose.orientation = Quaternion(0,0,0.707,0.707)
+        goal_pose.orientation = Quaternion(0.005,-0.005,0.707,0.707)
         moveit_goal = self.create_move_group_pose_goal(goal_pose, group="manipulator", end_link_name="end_Link", plan_only=False)
         rospy.loginfo("Sending goal...")
         self.moveit_ac.send_goal(moveit_goal)
@@ -91,11 +91,51 @@ class MoveMK2ik():
         print( group.get_current_pose().pose)
 	
 
-        # Goto position 2
-        goal_point = Point(-0.287542,0.319282,0.134797)
+        # Goto position 2 [PICK]
+        goal_point = Point(-0.245807,0.306796,0.0821576)
         goal_pose.position = goal_point
         quat = quaternion_from_euler(0.2, 0.2, 0.2) # roll, pitch, yaw
-        goal_pose.orientation = Quaternion(00.011906,-0.0238,0.904829 ,0.424961)
+        goal_pose.orientation = Quaternion(-0.199651,0.11139,0.859318,0.459499)
+        moveit_goal = self.create_move_group_pose_goal(goal_pose, group="manipulator", end_link_name="end_Link", plan_only=False)
+        rospy.loginfo("Sending goal...")
+        self.moveit_ac.send_goal(moveit_goal)
+        rospy.loginfo("Waiting for result...")
+        self.moveit_ac.wait_for_result(rospy.Duration(10.0))
+        moveit_result = self.moveit_ac.get_result()
+        time.sleep(5)
+        print "Pick position: "
+        print group.get_current_pose().pose
+        """
+        #Gripper [OPEN]
+        gripper = moveit_commander.MoveGroupCommander("arm_claw")
+        joint_positions = [0.7,0.7]
+        gripper.set_joint_value_target(joint_positions)
+        gripper.go()
+        """
+
+        # Goto position 3 [PUT]
+        goal_point = Point(0.110921,0.383053,0.0912104)
+        goal_pose.position = goal_point
+        quat = quaternion_from_euler(0.2, 0.2, 0.2) # roll, pitch, yaw
+        goal_pose.orientation = Quaternion(-0.100325,0.191939,0.542264,0.811815)
+        moveit_goal = self.create_move_group_pose_goal(goal_pose, group="manipulator", end_link_name="end_Link", plan_only=False)
+        rospy.loginfo("Sending goal...")
+        self.moveit_ac.send_goal(moveit_goal)
+        rospy.loginfo("Waiting for result...")
+        self.moveit_ac.wait_for_result(rospy.Duration(10.0))
+        moveit_result = self.moveit_ac.get_result()
+        time.sleep(5)
+        print "Put position: "
+        print group.get_current_pose().pose
+
+        # Goto position 4 [HOME]
+        # x ,y , z
+        goal_point = Point(-0.0297,0.3455,0.41)
+        goal_pose.position = goal_point
+        # roll, pitch, yaw
+        quat = quaternion_from_euler(0.0, 0.0, 0.0) 
+        # hardcode quaternion
+        goal_pose.orientation = Quaternion(0.005,-0.005,0.707,0.707)
         moveit_goal = self.create_move_group_pose_goal(goal_pose, group="manipulator", end_link_name="end_Link", plan_only=False)
         rospy.loginfo("Sending goal...")
         self.moveit_ac.send_goal(moveit_goal)
@@ -103,8 +143,10 @@ class MoveMK2ik():
         self.moveit_ac.wait_for_result(rospy.Duration(10.0))
         moveit_result = self.moveit_ac.get_result()
         time.sleep(1)
-        print "Pick position: "
-        print group.get_current_pose().pose
+        print( "Home position: ")
+        print( group.get_current_pose().pose)
+
+
 
 
 if __name__ == '__main__':
